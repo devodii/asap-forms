@@ -1,0 +1,1 @@
+ALTER TABLE "password_reset" ALTER COLUMN "secret" SET NOT NULL;

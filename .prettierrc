@@ -1,0 +1,6 @@
+{
+  "semi": false,
+  "tailwindFunctions": ["clsx"],
+  "printWidth": 120,
+  "plugins": ["prettier-plugin-tailwindcss"]
+}

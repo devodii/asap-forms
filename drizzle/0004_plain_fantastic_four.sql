@@ -1,0 +1,1 @@
+ALTER TABLE "password_reset" ADD COLUMN "secret" varchar;
