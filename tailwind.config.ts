@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config: Config = {
   darkMode: ["class"],
@@ -58,6 +58,10 @@ const config: Config = {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        signal: {
+          DEFAULT: "hsl(var(--signal))",
+          fill: "hsl(var(--signal-fill))",
+        },
       },
       backgroundColor: {
         "gray-50": "#f1f6f6",
@@ -65,5 +69,5 @@ const config: Config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-};
-export default config;
+}
+export default config
