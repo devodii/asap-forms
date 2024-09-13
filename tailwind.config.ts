@@ -9,9 +9,6 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        lato: ["var(--font-lato)"],
-      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -48,6 +45,9 @@ const config: Config = {
           DEFAULT: "hsl(var(--destructive))",
           foreground: "hsl(var(--destructive-foreground))",
         },
+        blue: {
+          alpha: "#3498db",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -59,8 +59,8 @@ const config: Config = {
           "5": "hsl(var(--chart-5))",
         },
         signal: {
-          DEFAULT: "hsl(var(--signal))",
-          fill: "hsl(var(--signal-fill))",
+          DEFAULT: "#bb5504",
+          fill: "#ffde92",
         },
       },
       backgroundColor: {

@@ -1,9 +1,10 @@
-import { sql } from "@vercel/postgres";
-import { drizzle } from "drizzle-orm/vercel-postgres";
-import * as schema from "./schema";
+import { drizzle } from "drizzle-orm/postgres-js"
+import postgres from "postgres"
+import * as schema from "./schema"
 
-const db = drizzle(sql, { schema, logger: true });
+const queryClient = postgres(process.env.POSTGRES_URL!)
+const db = drizzle(queryClient, { logger: true, schema })
 
-export default db;
+export default db
 
-export type DrizzleClient = typeof db;
+export type DrizzleClient = typeof db
