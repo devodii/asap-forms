@@ -11,7 +11,7 @@ export default function Home() {
       </p>
 
       <Button asChild className="mx-auto w-full max-w-xl">
-        <Link href="/sign-up">Start</Link>
+        <Link href="/sign-up">Start building</Link>
       </Button>
     </Wrapper>
   )

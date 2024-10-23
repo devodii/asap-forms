@@ -6,23 +6,22 @@ import { Button } from "@/components/ui/button"
 import { Wrapper } from "@/components/wrapper"
 import { Error, makeErrorMessage } from "@/errors"
 import { Effect, Either } from "effect"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { toast } from "sonner"
 
-export interface AuthDTO {
-  email: string
-  password: string
-}
-
 interface Props<E> {
-  handleSubmit: (dto: AuthDTO) => Effect.Effect<void, E>
+  handleSubmit: (dto: { email: string; password: string }) => Effect.Effect<void, E>
   title: string
+  ctaText: string
 }
 
-export const AuthForm = <E extends Error>({ handleSubmit, title }: Props<E>) => {
+export const AuthForm = <E extends Error>({ handleSubmit, title, ctaText }: Props<E>) => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
+
+  const { push } = useRouter()
 
   const submitHandler = (e: any) =>
     Effect.gen(function* () {
@@ -32,9 +31,12 @@ export const AuthForm = <E extends Error>({ handleSubmit, title }: Props<E>) => 
       setLoading(true)
 
       const either = yield* handleSubmit({ email, password }).pipe(Effect.either)
-      if (Either.isLeft(either)) toast.error(makeErrorMessage(either.left._tag))
 
       setLoading(false)
+
+      if (Either.isLeft(either)) return toast.error(makeErrorMessage(either.left._tag))
+
+      push("/editor")
     }).pipe(Effect.runPromise)
 
   return (
@@ -44,7 +46,7 @@ export const AuthForm = <E extends Error>({ handleSubmit, title }: Props<E>) => 
         <DetailedInput value={email} onChange={(e) => setEmail(e.target.value)} title="Email" id="email" />
         <DetailedInput value={password} onChange={(e) => setPassword(e.target.value)} title="Password" id="password" />
         <Button type="submit" className="flex items-center gap-1">
-          <span className="font-medium">Sign in</span>
+          <span className="font-medium">{ctaText}</span>
           {loading && <Spinner />}
         </Button>
       </form>
