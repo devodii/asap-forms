@@ -1,9 +1,58 @@
 {
-  "id": "3f9da611-5839-4019-8cd5-d1490f7fc64a",
-  "prevId": "9983f3d4-a4d0-42a1-bf41-904fdd6b185d",
+  "id": "67d09f65-4a00-4296-b765-9216e2be28f9",
+  "prevId": "2d4658f2-15dc-4d95-9446-3977fe3e071e",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
+    "public.account": {
+      "name": "account",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "updatedAt": {
+          "name": "updatedAt",
+          "type": "timestamp (3)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "email": {
+          "name": "email",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "password": {
+          "name": "password",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "account_email_unique": {
+          "name": "account_email_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "email"
+          ]
+        }
+      }
+    },
     "public.form": {
       "name": "form",
       "schema": "",
@@ -27,8 +76,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "sessionId": {
-          "name": "sessionId",
+        "account_id": {
+          "name": "account_id",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
@@ -48,12 +97,12 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "sesh_form_fk": {
-          "name": "sesh_form_fk",
+        "fk__account_form": {
+          "name": "fk__account_form",
           "tableFrom": "form",
-          "tableTo": "session",
+          "tableTo": "account",
           "columnsFrom": [
-            "sessionId"
+            "account_id"
           ],
           "columnsTo": [
             "id"
@@ -62,35 +111,6 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.session": {
-      "name": "session",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "varchar",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp (3)",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
@@ -148,30 +168,6 @@
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
-    },
-    "public.waitlist": {
-      "name": "waitlist",
-      "schema": "",
-      "columns": {
-        "email": {
-          "name": "email",
-          "type": "varchar",
-          "primaryKey": true,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "waitlist_email_unique": {
-          "name": "waitlist_email_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
-        }
-      }
     }
   },
   "enums": {},
